@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Header, Icon, Container } from 'semantic-ui-react';
+
+import AudioPlayer from './AudioPlayer';
+import BeatMetadata from './beat_metadata.js'
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>supadeangeli beats</h2>
-        </div>
-        <p className="App-intro">
-            hard mf beats
-        </p>
-      </div>
+
+      // names of the beats that will be loaded
+      let beatNames = [
+          "ceiling",
+          "balcony hours"
+          // TODO: add more beat names here
+      ];
+
+      let beatMetadata = new BeatMetadata().metadata;
+
+      return (
+      <Container style={{ marginTop: '3em' }}>
+          <Header as='h2' icon textAlign='center'>
+              <Icon name='music'></Icon>
+              <Header.Content>supadeangeli beats</Header.Content>
+          </Header>
+          <AudioPlayer audioFileNames={beatNames} beatMetadata={beatMetadata} audioFileDir={"./beats"}></AudioPlayer>
+      </Container>
     );
   }
 }
