@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Beat from "./Beat";
+import TagFilter from "./TagFilter.js";
+
 import {List, Button, Grid, Icon, Segment} from 'semantic-ui-react';
 
 class AudioPlayer extends Component {
@@ -26,7 +28,6 @@ class AudioPlayer extends Component {
             currentTrackTitle: "click play for a random beat",
             isPlayingTrack: false
         };
-
     }
 
     render() {
@@ -47,8 +48,7 @@ class AudioPlayer extends Component {
                 }
             }
         );
-
-        console.log(beatTags);
+        let beatTagsArr = Array.from(beatTags);
 
         // decide whether to show play or pause button
         let playPause = 'play';
@@ -60,7 +60,7 @@ class AudioPlayer extends Component {
             <Grid columns={1}>
                 <Grid.Column>
 
-
+                    <TagFilter tags={beatTagsArr} filterByTags={this.filterByTags}></TagFilter>
                     <List divided verticalAlign='middle'>{beatLabels}</List>
 
                     <Segment>
@@ -111,6 +111,11 @@ class AudioPlayer extends Component {
         this.setState({
             isPlayingTrack: !wasPlaying
         });
+    };
+
+    filterByTags = (tags) => {
+        console.log(tags);
+        // TODO: only show beats that match the tags
     };
 }
 
