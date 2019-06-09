@@ -4,7 +4,7 @@ import {Button} from 'semantic-ui-react';
 class TagButton extends Component {
     render() {
         return (
-            <Button key={this.props.tag} toggle active={this.props.active} size='tiny' fluid onClick={this.filterTag}>
+            <Button key={this.props.tag} toggle active={this.props.active} size='tiny' compact onClick={this.filterTag}>
                 {this.props.tag}
             </Button>
         );

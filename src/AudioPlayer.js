@@ -61,9 +61,9 @@ class AudioPlayer extends Component {
         }
 
         return (
-            <Grid columns={2}>
+            <Grid columns={1}>
                 <Grid.Column>
-
+                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
                     <List divided verticalAlign='middle'>{beatLabels}</List>
 
                     <Segment>
@@ -74,9 +74,9 @@ class AudioPlayer extends Component {
                     </Segment>
 
                 </Grid.Column>
-                <Grid.Column>
-                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
-                </Grid.Column>
+                {/*<Grid.Column>*/}
+                    {/*<TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>*/}
+                {/*</Grid.Column>*/}
             </Grid>
         );
     }

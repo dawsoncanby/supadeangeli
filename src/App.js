@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Icon, Container } from 'semantic-ui-react';
+import './App.css';
 
 import AudioPlayer from './AudioPlayer';
 import BeatMetadata from './beat_metadata.js'
@@ -17,7 +18,7 @@ class App extends Component {
       let beatMetadata = new BeatMetadata().metadata;
 
       return (
-      <Container style={{ marginTop: '3em' }}>
+      <Container className='App-container'>
           <Header as='h2' icon textAlign='center'>
               <Icon name='music'></Icon>
               <Header.Content>supadeangeli beats</Header.Content>
