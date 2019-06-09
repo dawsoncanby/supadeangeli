@@ -7,15 +7,10 @@ import BeatMetadata from './beat_metadata.js'
 
 class App extends Component {
   render() {
+      let beatMetadata = new BeatMetadata().metadata;
 
       // names of the beats that will be loaded
-      let beatNames = [
-          "ceiling",
-          "balcony hours"
-          // TODO: add more beat names here
-      ];
-
-      let beatMetadata = new BeatMetadata().metadata;
+      let beatNames = Object.keys(beatMetadata);
 
       return (
       <Container className='App-container'>

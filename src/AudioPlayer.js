@@ -45,11 +45,12 @@ class AudioPlayer extends Component {
 
     render() {
         // beatLabels are the elements for the list of playable beats
-        let beatLabels =[];
+        let beatLabels = [];
         Array.from(this.audioFiles.keys()).forEach(
             (beatName) => {
                 if (this.beatMatchesSelectedTags(beatName)) {
-                    beatLabels.push(<Beat key={beatName} beatName={beatName} audioPlayerPlayFcn={this.playAudio}></Beat>);
+                    beatLabels.push(<Beat key={beatName} beatName={beatName}
+                                          audioPlayerPlayFcn={this.playAudio}></Beat>);
                 }
             }
         );
@@ -74,9 +75,6 @@ class AudioPlayer extends Component {
                     </Segment>
 
                 </Grid.Column>
-                {/*<Grid.Column>*/}
-                    {/*<TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>*/}
-                {/*</Grid.Column>*/}
             </Grid>
         );
     }

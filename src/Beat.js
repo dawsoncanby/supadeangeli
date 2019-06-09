@@ -8,7 +8,7 @@ class Beat extends Component {
     render() {
         return (
             <List.Item key={this.props.beatName}>
-                <List.Content floated='right'>
+                <List.Content floated='left'>
                     <Button icon onClick={this.handleClick}>
                         <Icon name='play'/>
                     </Button>

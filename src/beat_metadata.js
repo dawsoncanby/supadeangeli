@@ -3,7 +3,8 @@ class BeatMetadata {
         this.metadata =
             {
                 "balcony hours": ["slow", "emotional", "guitar"],
-                "ceiling": ["bouncy", "happy", "clean"]
+                "ceiling": ["bouncy", "happy", "clean"],
+                "long drags": ["lofi", "piano", "moody", "nostalgic", "slow", "emotional"]
             };
     }
 }
