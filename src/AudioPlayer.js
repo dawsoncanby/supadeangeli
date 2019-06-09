@@ -26,7 +26,7 @@ class AudioPlayer extends Component {
 
         // get all tags
         let beatTags = new Set();
-        Array.from(this.audioFiles.keys()).map(
+        Array.from(this.audioFiles.keys()).forEach(
             (audioName) => {
                 let thisBeatsTags = this.props.beatMetadata[audioName];
                 for (let i = 0; i < thisBeatsTags.length; i++) {
@@ -45,10 +45,11 @@ class AudioPlayer extends Component {
 
     render() {
         // beatLabels are the elements for the list of playable beats
-        let beatLabels = Array.from(this.audioFiles.keys()).map(
+        let beatLabels =[];
+        Array.from(this.audioFiles.keys()).forEach(
             (beatName) => {
                 if (this.beatMatchesSelectedTags(beatName)) {
-                    return <Beat key={beatName} beatName={beatName} audioPlayerPlayFcn={this.playAudio}></Beat>;
+                    beatLabels.push(<Beat key={beatName} beatName={beatName} audioPlayerPlayFcn={this.playAudio}></Beat>);
                 }
             }
         );
@@ -60,10 +61,9 @@ class AudioPlayer extends Component {
         }
 
         return (
-            <Grid columns={1}>
+            <Grid columns={2}>
                 <Grid.Column>
 
-                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
                     <List divided verticalAlign='middle'>{beatLabels}</List>
 
                     <Segment>
@@ -73,6 +73,9 @@ class AudioPlayer extends Component {
                         {this.state.currentTrackTitle}
                     </Segment>
 
+                </Grid.Column>
+                <Grid.Column>
+                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
                 </Grid.Column>
             </Grid>
         );

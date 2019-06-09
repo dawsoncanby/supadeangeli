@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Segment, Button} from 'semantic-ui-react';
+import {Segment} from 'semantic-ui-react';
 import TagButton from "./TagButton";
 
 class TagFilter extends Component {
@@ -20,11 +20,7 @@ class TagFilter extends Component {
         );
 
         return (
-            <Segment>
-                <Button.Group>
-                    {tagButtons}
-                </Button.Group>
-            </Segment>
+            <Segment compact>{tagButtons}</Segment>
         );
     }
 
@@ -32,7 +28,7 @@ class TagFilter extends Component {
         let newTags = [];
         if (this.state.selectedTags.includes(tag)) {
             let index = this.state.selectedTags.indexOf(tag);
-            newTags =  [...this.state.selectedTags];
+            newTags = [...this.state.selectedTags];
             newTags.splice(index, 1);
         }
         else {
