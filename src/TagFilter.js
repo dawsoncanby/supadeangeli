@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Segment, Button, Icon} from 'semantic-ui-react';
+import {Segment, Button} from 'semantic-ui-react';
 import TagButton from "./TagButton";
 
 class TagFilter extends Component {

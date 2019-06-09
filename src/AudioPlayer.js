@@ -24,20 +24,6 @@ class AudioPlayer extends Component {
         // the audio object for the beat that is being played, or null
         this.playingAudio = null;
 
-        this.state = {
-            currentTrackTitle: "click play for a random beat",
-            isPlayingTrack: false
-        };
-    }
-
-    render() {
-        // beatLabels are the elements for the list of playable beats
-        let beatLabels = Array.from(this.audioFiles.keys()).map(
-            (audioName) => {
-                return <Beat key={audioName} beatName={audioName} audioPlayerPlayFcn={this.playAudio}></Beat>;
-            }
-        );
-
         // get all tags
         let beatTags = new Set();
         Array.from(this.audioFiles.keys()).map(
@@ -48,7 +34,24 @@ class AudioPlayer extends Component {
                 }
             }
         );
-        let beatTagsArr = Array.from(beatTags);
+        this.beatTags = Array.from(beatTags);
+
+        this.state = {
+            currentTrackTitle: "click play for a random beat",
+            isPlayingTrack: false,
+            selectedTags: []
+        };
+    }
+
+    render() {
+        // beatLabels are the elements for the list of playable beats
+        let beatLabels = Array.from(this.audioFiles.keys()).map(
+            (beatName) => {
+                if (this.beatMatchesSelectedTags(beatName)) {
+                    return <Beat key={beatName} beatName={beatName} audioPlayerPlayFcn={this.playAudio}></Beat>;
+                }
+            }
+        );
 
         // decide whether to show play or pause button
         let playPause = 'play';
@@ -60,7 +63,7 @@ class AudioPlayer extends Component {
             <Grid columns={1}>
                 <Grid.Column>
 
-                    <TagFilter tags={beatTagsArr} filterByTags={this.filterByTags}></TagFilter>
+                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
                     <List divided verticalAlign='middle'>{beatLabels}</List>
 
                     <Segment>
@@ -113,10 +116,35 @@ class AudioPlayer extends Component {
         });
     };
 
+    // filter the beats shown to the user by the selected tags
     filterByTags = (tags) => {
-        console.log(tags);
-        // TODO: only show beats that match the tags
+        this.setState({
+            selectedTags: tags
+        });
     };
+
+    // check to see if this beat has any of the selected tags
+    // TODO: probably worth it to improve this way of searching by tags (add relevance ranking, BPM/key
+    beatMatchesSelectedTags = (beatName) => {
+        let selectedTags = this.state.selectedTags;
+        let thisBeatsTags = this.props.beatMetadata[beatName];
+
+        // if there are no tags, always return true
+        if (selectedTags.length === 0) {
+            return true;
+        }
+
+        // check to see if this beat has a matching tag
+        for (let i = 0; i < selectedTags.length; i++) {
+            for (let j = 0; j < thisBeatsTags.length; j++) {
+                if (selectedTags[i] === thisBeatsTags[j]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 
 export default AudioPlayer;
