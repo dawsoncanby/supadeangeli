@@ -1,0 +1,4 @@
+.AudioPlayer-beat-list {
+    overflow: scroll;
+    overflow-x: hidden;
+}

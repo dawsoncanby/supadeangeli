@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Beat from "./Beat";
 import TagFilter from "./TagFilter.js";
+import './AudioPlayer.css';
+import {Ref} from 'semantic-ui-react';
 
-import {List, Button, Grid, Icon, Segment} from 'semantic-ui-react';
+import {List, Button, Grid, Icon, Segment, Rail, Sticky} from 'semantic-ui-react';
 
 class AudioPlayer extends Component {
 
@@ -65,15 +67,16 @@ class AudioPlayer extends Component {
             <Grid columns={1}>
                 <Grid.Column>
                     <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
-                    <List divided verticalAlign='middle'>{beatLabels}</List>
-
                     <Segment>
+                        <List className='AudioPlayer-beat-list' divided verticalAlign='middle'>{beatLabels}</List>
+                    </Segment>
+                    <Segment>
+
                         <Button icon onClick={this.togglePlaying}>
                             <Icon name={playPause}></Icon>
                         </Button>
                         {this.state.currentTrackTitle}
                     </Segment>
-
                 </Grid.Column>
             </Grid>
         );

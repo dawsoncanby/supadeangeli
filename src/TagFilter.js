@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Segment, Header} from 'semantic-ui-react';
+import {Container, Header} from 'semantic-ui-react';
 import TagButton from "./TagButton";
 
 class TagFilter extends Component {
@@ -20,10 +20,10 @@ class TagFilter extends Component {
         );
 
         return (
-            <Segment compact>
+            <Container>
                 <Header as={'h5'}>Find beats by selecting tags:</Header>
                 {tagButtons}
-                </Segment>
+            </Container>
         );
     }
 

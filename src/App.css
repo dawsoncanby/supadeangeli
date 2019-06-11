@@ -1,4 +1,4 @@
 .App-container {
-    margin-top: 2em;
-    touch-action: manipulation;
+    margin-top: 1em;
+    touch-action: none;
 }
