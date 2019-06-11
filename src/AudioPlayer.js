@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import Beat from "./Beat";
 import TagFilter from "./TagFilter.js";
 import './AudioPlayer.css';
-import {Ref} from 'semantic-ui-react';
 
-import {List, Button, Grid, Icon, Segment, Rail, Sticky} from 'semantic-ui-react';
+import {List, Button, Grid, Icon, Segment} from 'semantic-ui-react';
 
 class AudioPlayer extends Component {
 

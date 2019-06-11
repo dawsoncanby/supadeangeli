@@ -1,37 +1,35 @@
 import React, {Component} from 'react';
 
-import {Container, Button, Segment, Icon, Grid} from 'semantic-ui-react';
+import {Button, Icon, Grid} from 'semantic-ui-react';
 
 class Links extends Component {
     render() {
         return (
-            <Grid columns='2' centered={true} compact>
-                <Grid.Column>
-                    <Segment compact>
-                        Supa Squidds &nbsp;
-                        <Button compact circular color='instagram' icon href='https://www.instagram.com/supa_squidds/'>
-                            <Icon name='instagram'></Icon>
-                        </Button>
-                        <Button compact circular color='green' icon
-                                href='https://open.spotify.com/artist/226oZaBWbPTWNFWW3SdOwB?si=jabmCPCTT2GI_oYWH3LaUA'>
-                            <Icon name='spotify'></Icon>
-                        </Button>
-                        <Button compact circular color='orange' icon href='https://soundcloud.com/supasquidds'>
-                            <Icon name='soundcloud'></Icon>
-                        </Button>
-                    </Segment>
-                </Grid.Column>
+            <Grid columns='1' centered={true}>
 
-                <Grid.Column>
-                    <Segment compact>
-                        Deangeli &nbsp;
-                        <Button compact circular color='instagram' icon href='https://www.instagram.com/deangelibeats/'>
+                <Grid.Column textAlign='center'>
+                    <Button.Group>
+                        <Button compact color='instagram' icon labelPosition='left'
+                                href='https://instagram.com/deangelibeats'>
                             <Icon name='instagram'></Icon>
+                            deangeli
                         </Button>
-                        <Button compact circular color='orange' icon href='https://soundcloud.com/devngeli'>
+                        <Button compact color='youtube' icon labelPosition='left'
+                                href='https://www.youtube.com/channel/UCHcjR6a3FnVi1IzjBXQ0B6A'>
+                            <Icon name='youtube play'></Icon>
+                            youtube
+                        </Button>
+                        <Button compact color='orange' icon labelPosition='left' href='https://soundcloud.com/supadeangeli-beats'>
                             <Icon name='soundcloud'></Icon>
+                            soundcloud
                         </Button>
-                    </Segment>
+                        <Button compact color='instagram' icon labelPosition='left'
+                                href='https://instagram.com/dawsoncanby'>
+                            <Icon name='instagram'></Icon>
+                            supa d
+                        </Button>
+
+                    </Button.Group>
                 </Grid.Column>
             </Grid>
         );
