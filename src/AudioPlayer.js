@@ -3,7 +3,7 @@ import Beat from "./Beat";
 import TagFilter from "./TagFilter.js";
 import './AudioPlayer.css';
 
-import {List, Button, Grid, Icon, Segment} from 'semantic-ui-react';
+import {List, Button, Grid, Icon} from 'semantic-ui-react';
 
 class AudioPlayer extends Component {
 
@@ -29,7 +29,7 @@ class AudioPlayer extends Component {
         let beatTags = new Set();
         Array.from(this.audioFiles.keys()).forEach(
             (audioName) => {
-                let thisBeatsTags = this.props.beatMetadata[audioName];
+                let thisBeatsTags = this.props.beatMetadata[audioName].tags;
                 for (let i = 0; i < thisBeatsTags.length; i++) {
                     beatTags.add(thisBeatsTags[i]);
                 }
@@ -40,9 +40,17 @@ class AudioPlayer extends Component {
         this.state = {
             currentTrackTitle: "click play for a random beat",
             isPlayingTrack: false,
-            selectedTags: []
+            selectedTags: [],
+            currentBuyLink: ""
         };
     }
+
+    componentWillUnmount() {
+        if (this.playingAudio != null) {
+            this.playingAudio.pause();
+        }
+    }
+
 
     render() {
         // beatLabels are the elements for the list of playable beats
@@ -51,7 +59,8 @@ class AudioPlayer extends Component {
             (beatName) => {
                 if (this.beatMatchesSelectedTags(beatName)) {
                     beatLabels.push(<Beat key={beatName} beatName={beatName}
-                                          audioPlayerPlayFcn={this.playAudio}></Beat>);
+                                          audioPlayerPlayFcn={this.playAudio}
+                                          buyLink={this.props.beatMetadata[beatName].buyLink}></Beat>);
                 }
             }
         );
@@ -63,19 +72,21 @@ class AudioPlayer extends Component {
         }
 
         return (
-            <Grid columns={1}>
-                <Grid.Column>
-                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
-                    <Segment>
-                        <List className='AudioPlayer-beat-list' divided verticalAlign='middle'>{beatLabels}</List>
-                    </Segment>
-                    <Segment>
+            <Grid columns={1} className='AudioPlayer'>
+                <Grid.Column textAlign='center'>
+                    <h3>{this.state.currentTrackTitle}</h3>
+                    <Button icon onClick={this.togglePlaying}>
+                        <Icon name={playPause}></Icon>
+                    </Button>
+                    <Button icon labelPosition='left' href={this.state.currentBuyLink}>
+                        <Icon name='dollar sign'></Icon>
+                        Buy Now
+                    </Button>
+                    <br/>
+                    <List className='AudioPlayer-beat-list' divided relaxed verticalAlign='middle'>{beatLabels}</List>
 
-                        <Button icon onClick={this.togglePlaying}>
-                            <Icon name={playPause}></Icon>
-                        </Button>
-                        {this.state.currentTrackTitle}
-                    </Segment>
+                    <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
+
                 </Grid.Column>
             </Grid>
         );
@@ -84,6 +95,7 @@ class AudioPlayer extends Component {
     // stop other audio being played, start
     playAudio = (audioName) => {
         let newAudioToPlay = this.audioFiles.get(audioName);
+        let newBuyLink = this.props.beatMetadata[audioName].buyLink;
 
         if (this.playingAudio != null) {
             this.playingAudio.pause();
@@ -95,7 +107,8 @@ class AudioPlayer extends Component {
 
         this.setState({
             currentTrackTitle: audioName,
-            isPlayingTrack: true
+            isPlayingTrack: true,
+            currentBuyLink: newBuyLink
         });
     };
 
@@ -130,7 +143,8 @@ class AudioPlayer extends Component {
     // TODO: probably worth it to improve this way of searching by tags (add relevance ranking, BPM/key
     beatMatchesSelectedTags = (beatName) => {
         let selectedTags = this.state.selectedTags;
-        let thisBeatsTags = this.props.beatMetadata[beatName];
+        let thisBeatsTags = this.props.beatMetadata[beatName].tags;
+
 
         // if there are no tags, always return true
         if (selectedTags.length === 0) {

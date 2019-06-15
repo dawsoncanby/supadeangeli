@@ -2,9 +2,11 @@ class BeatMetadata {
     constructor() {
         this.metadata =
             {
-                "balcony hours": ["slow", "emotional", "guitar"],
-                "ceiling": ["bouncy", "happy", "clean"],
-                "long drags": ["lofi", "piano", "moody", "nostalgic", "slow", "emotional"]
+                "ceiling":
+                    {
+                        "tags": ["bouncy", "happy", "clean"],
+                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388"
+                    },
             };
     }
 }

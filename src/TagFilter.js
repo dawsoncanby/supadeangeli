@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Header} from 'semantic-ui-react';
-import TagButton from "./TagButton";
+import {Container, Header, Dropdown} from 'semantic-ui-react';
 
 class TagFilter extends Component {
     constructor(props) {
@@ -8,21 +7,33 @@ class TagFilter extends Component {
 
         this.state = {
             selectedTags: []
-        }
+        };
+
+        // search bar dropdown options
+        this.tagOptions = this.props.tags.map((tag) => {
+            return {
+                key: tag,
+                text: tag,
+                value: tag
+            }
+        });
     }
 
     render() {
-        let tagButtons = this.props.tags.map(
-            (tag) => {
-                let active = this.state.selectedTags.includes(tag);
-                return <TagButton key={tag} tag={tag} active={active} filterTagFcn={this.filterTag}></TagButton>;
-            }
-        );
+
+        let searchDropdown = <Dropdown placeholder='search for tags'
+                                       multiple
+                                       search
+                                       selection
+                                       options={this.tagOptions}
+                                       onChange={(e, data) => this.searchBarUpdated(e, data)}>
+
+        </Dropdown>;
 
         return (
             <Container>
-                <Header as={'h5'}>Find beats by selecting tags:</Header>
-                {tagButtons}
+                <Header as={'h3'}>Find beats by selecting tags:</Header>
+                {searchDropdown}
             </Container>
         );
     }
@@ -45,6 +56,14 @@ class TagFilter extends Component {
         // notify audioplayer to sort beats by tags
         this.props.filterByTags(newTags);
     };
+
+    searchBarUpdated = (e, data) => {
+        // get all selected tags from dropdown
+        this.setState({
+            selectedTags: data['value']
+        });
+        this.props.filterByTags(data['value']);
+    }
 }
 
 export default TagFilter;

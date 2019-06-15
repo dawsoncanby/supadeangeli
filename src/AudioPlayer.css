@@ -1,3 +1,7 @@
+.AudioPlayer {
+    padding: 0px 0px 20px 20px  !important;
+}
+
 .AudioPlayer-beat-list {
     overflow: scroll;
     overflow-x: hidden;

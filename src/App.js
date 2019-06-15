@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Header, Container, Button, Menu} from 'semantic-ui-react';
+import {Grid, Header, Container, Button, Menu, Rail, Sticky, Image} from 'semantic-ui-react';
 import './App.css';
 
 import AudioPlayer from './AudioPlayer';
@@ -19,14 +19,14 @@ class App extends Component {
         let beatNames = Object.keys(beatMetadata);
 
         // search for beats and play them
-        this.audioPlayer = <AudioPlayer audioFileNames={beatNames} beatMetadata={beatMetadata}
+        this.audioPlayer = <AudioPlayer className='AudioPlayer' audioFileNames={beatNames} beatMetadata={beatMetadata}
                                         audioFileDir={"./beats"}></AudioPlayer>;
 
-        // first thing user sees
+        // homepage - first thing user sees
         this.home = <Grid columns={1}>
             <Grid.Column textAlign='center'>
                 <Links></Links>
-            <br/>
+                <br/>
                 <Button circular size='huge' onClick={this.openBeatBrowser}>FIND BEATS NOW!</Button>
             </Grid.Column>
         </Grid>;
@@ -42,21 +42,35 @@ class App extends Component {
         };
     }
 
-
     render() {
 
         return (
             <Container className='App-container'>
                 <Header as='h1' textAlign='center'>
+                    <Image src='./img/supadeangeli-logo.png' size='huge' circular></Image>
                     <Header.Content>supadeangeli beats</Header.Content>
                 </Header>
-                <Menu pointing secondary>
-                    <Menu.Item name='home' active={this.activePage === 'home'} onClick={this.openHome}></Menu.Item>
-                    <Menu.Item name='FIND BEATS' active={this.activePage === 'find_beats'}
-                               onClick={this.openBeatBrowser}></Menu.Item>
-                    <Menu.Item name='our artists' active={this.activePage === 'our_artists'} onClick={this.openArtists}></Menu.Item>
-                </Menu>
-                {this.state.content}
+                <Rail
+                    internal
+                    position="left"
+                    attached
+                    style={{top: "auto", height: "auto", width: "100%"}}
+                >
+
+                    <Sticky>
+                        <Menu style={{background: 'white'}} widths='three' pointing secondary>
+                            <Menu.Item name='home' active={this.activePage === 'home'}
+                                       onClick={this.openHome}></Menu.Item>
+                            <Menu.Item name='FIND BEATS' active={this.activePage === 'find_beats'}
+                                       onClick={this.openBeatBrowser}></Menu.Item>
+                            <Menu.Item name='our artists' active={this.activePage === 'our_artists'}
+                                       onClick={this.openArtists}></Menu.Item>
+                        </Menu>
+                    </Sticky>
+                    <br/>
+                    {this.state.content}
+                </Rail>
+
             </Container>
         );
     }
@@ -72,9 +86,9 @@ class App extends Component {
     };
 
     openArtists = () => {
-        this.activePage = 'our_artists'
+        this.activePage = 'our_artists';
         this.setState({content: this.ourArtists});
-    }
+    };
 }
 
 export default App;
