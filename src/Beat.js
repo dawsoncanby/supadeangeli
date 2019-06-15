@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Button, Icon} from "semantic-ui-react";
+import {List} from "semantic-ui-react";
 import './Beat.css';
 
 // represents a beat that can be played on the website
@@ -8,16 +8,12 @@ class Beat extends Component {
 
     render() {
         return (
-            <List.Item className='Beat' key={this.props.beatName}>
-                <List.Content floated='left'>
-                    <Button icon onClick={this.handleClick}>
-                        <Icon name='play'/>
-                    </Button>
-                    <Button icon href={this.props.buyLink}>
-                        <Icon name='dollar sign'/>
-                    </Button>
+            <List.Item as='a' className='Beat' onClick={this.handleClick} key={this.props.beatName}>
+                <List.Icon verticalAlign='middle' name='play'></List.Icon>
+                <List.Content>
+                    <List.Content floated='left'>{this.props.beatName}</List.Content>
+                    <List.Content floated='right'>{'$' + this.props.metadata.leasePrice}</List.Content>
                 </List.Content>
-                <List.Content content={this.props.beatName}></List.Content>
             </List.Item>
         );
     }

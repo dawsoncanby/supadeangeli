@@ -27,7 +27,7 @@ class App extends Component {
             <Grid.Column textAlign='center'>
                 <Links></Links>
                 <br/>
-                <Button circular size='huge' onClick={this.openBeatBrowser}>FIND BEATS NOW!</Button>
+                <Button circular size='huge' onClick={this.openBeatBrowser}>FIND BEATS NOW</Button>
             </Grid.Column>
         </Grid>;
 

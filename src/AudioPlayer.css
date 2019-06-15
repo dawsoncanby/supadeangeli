@@ -1,8 +1,12 @@
 .AudioPlayer {
-    padding: 0px 0px 20px 20px  !important;
+    padding: 0px 20px 0px 20px  !important;
 }
 
 .AudioPlayer-beat-list {
+    padding: 10px 10px 10px 10px !important;
+    height: 100%;
+    margin: auto !important;
+    max-width: 700px;
     overflow: scroll;
     overflow-x: hidden;
 }

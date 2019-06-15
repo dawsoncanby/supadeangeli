@@ -23,7 +23,7 @@ class AudioPlayer extends Component {
         ));
 
         // the audio object for the beat that is being played, or null
-        this.playingAudio = null;
+        this.curPlayingAudioObj = null;
 
         // get all tags
         let beatTags = new Set();
@@ -38,16 +38,18 @@ class AudioPlayer extends Component {
         this.beatTags = Array.from(beatTags);
 
         this.state = {
-            currentTrackTitle: "click play for a random beat",
+            currentTrackTitle: "",
             isPlayingTrack: false,
             selectedTags: [],
-            currentBuyLink: ""
+            currentBuyLink: "",
+            // set to false when user hits play and audio is being loaded (not yet ready to play)
+            audioReadyToPlay: true
         };
     }
 
     componentWillUnmount() {
-        if (this.playingAudio != null) {
-            this.playingAudio.pause();
+        if (this.curPlayingAudioObj != null) {
+            this.curPlayingAudioObj.pause();
         }
     }
 
@@ -58,9 +60,10 @@ class AudioPlayer extends Component {
         Array.from(this.audioFiles.keys()).forEach(
             (beatName) => {
                 if (this.beatMatchesSelectedTags(beatName)) {
-                    beatLabels.push(<Beat key={beatName} beatName={beatName}
+                    let metadata = this.props.beatMetadata[beatName];
+                    beatLabels.push(<Beat key={beatName} beatName={beatName} metadata={metadata}
                                           audioPlayerPlayFcn={this.playAudio}
-                                          buyLink={this.props.beatMetadata[beatName].buyLink}></Beat>);
+                    ></Beat>);
                 }
             }
         );
@@ -71,21 +74,37 @@ class AudioPlayer extends Component {
             playPause = 'pause';
         }
 
+        // metadata for the beat that is playing
+        let curMetadata = this.props.beatMetadata[this.state.currentTrackTitle];
+
+        let playingBeatHeader;
+        let leaseButton;
+        if (this.curPlayingAudioObj !== null) {
+            playingBeatHeader = this.state.currentTrackTitle + ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key;
+            let beatPriceLabel = 'lease - $' + curMetadata.leasePrice
+            leaseButton = <Button icon compact labelPosition='left' href={this.state.currentBuyLink}>
+                <Icon name='shopping cart'></Icon>
+                {beatPriceLabel}
+            </Button>
+        }
+        else {
+            playingBeatHeader = 'click play for a random beat';
+        }
+
         return (
             <Grid columns={1} className='AudioPlayer'>
                 <Grid.Column textAlign='center'>
-                    <h3>{this.state.currentTrackTitle}</h3>
-                    <Button icon onClick={this.togglePlaying}>
+                    <h3>{playingBeatHeader}</h3>
+                    <Button icon compact onClick={this.togglePlaying} loading={!this.state.audioReadyToPlay}>
                         <Icon name={playPause}></Icon>
                     </Button>
-                    <Button icon labelPosition='left' href={this.state.currentBuyLink}>
-                        <Icon name='dollar sign'></Icon>
-                        Buy Now
-                    </Button>
+                    {leaseButton}
                     <br/>
-                    <List className='AudioPlayer-beat-list' divided relaxed verticalAlign='middle'>{beatLabels}</List>
-
+                    <br/>
                     <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
+                    <br/>
+                    <List className='AudioPlayer-beat-list' size='large' divided relaxed>{beatLabels}</List>
+                    <br/>
 
                 </Grid.Column>
             </Grid>
@@ -97,13 +116,25 @@ class AudioPlayer extends Component {
         let newAudioToPlay = this.audioFiles.get(audioName);
         let newBuyLink = this.props.beatMetadata[audioName].buyLink;
 
-        if (this.playingAudio != null) {
-            this.playingAudio.pause();
-            this.playingAudio.currentTime = 0;
+        // add event listener for when audio is done loading
+        newAudioToPlay.onplay = () => {
+            this.setState({
+                audioReadyToPlay: true
+            });
+        };
+
+        // check to see if audio is already ready to play
+        this.setState({
+            audioReadyToPlay: newAudioToPlay.readyState === 4
+        });
+
+        if (this.curPlayingAudioObj != null) {
+            this.curPlayingAudioObj.pause();
+            this.curPlayingAudioObj.currentTime = 0;
         }
 
-        this.playingAudio = newAudioToPlay;
-        this.playingAudio.play();
+        this.curPlayingAudioObj = newAudioToPlay;
+        this.curPlayingAudioObj.play();
 
         this.setState({
             currentTrackTitle: audioName,
@@ -114,17 +145,17 @@ class AudioPlayer extends Component {
 
     // play or pause the current track
     togglePlaying = () => {
-        if (this.playingAudio == null) {
+        if (this.curPlayingAudioObj == null) {
             this.playAudio(this.audioFiles.keys().next().value);
         }
 
         let wasPlaying = this.state.isPlayingTrack;
 
         if (wasPlaying) {
-            this.playingAudio.pause();
+            this.curPlayingAudioObj.pause();
         }
         else {
-            this.playingAudio.play();
+            this.curPlayingAudioObj.play();
         }
 
         this.setState({
