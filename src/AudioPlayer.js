@@ -4,6 +4,7 @@ import TagFilter from "./TagFilter.js";
 import './AudioPlayer.css';
 
 import {List, Button, Grid, Icon} from 'semantic-ui-react';
+import BeatMetadata from "./beat_metadata";
 
 class AudioPlayer extends Component {
 
@@ -14,11 +15,18 @@ class AudioPlayer extends Component {
      */
     constructor(props) {
         super(props);
+
+        // load beats
+        this.beatMetadata = new BeatMetadata().metadata;
+        // names of the beats that will be loaded
+        this.beatNames = Object.keys(this.beatMetadata);
+
+
         // load audio files
         // this.audioFiles is a map of beat name -> Audio object for that beat
-        this.audioFiles = new Map(this.props.audioFileNames.map(
+        this.audioFiles = new Map(this.beatNames.map(
             (beatName) => {
-                return [beatName, new Audio(this.props.audioFileDir + "/" + beatName + ".wav")];
+                return [beatName, new Audio("./beats_res/" + beatName + ".wav")];
             }
         ));
 
@@ -29,7 +37,7 @@ class AudioPlayer extends Component {
         let beatTags = new Set();
         Array.from(this.audioFiles.keys()).forEach(
             (audioName) => {
-                let thisBeatsTags = this.props.beatMetadata[audioName].tags;
+                let thisBeatsTags = this.beatMetadata[audioName].tags;
                 for (let i = 0; i < thisBeatsTags.length; i++) {
                     beatTags.add(thisBeatsTags[i]);
                 }
@@ -47,6 +55,16 @@ class AudioPlayer extends Component {
         };
     }
 
+    componentWillMount() {
+        // select beat given to url
+        let beatToPlay = this.props.location.search.substr(1).replace('%20', ' ');
+        // underscores are replaced by spaces
+
+        if (this.beatNames.includes(beatToPlay)) {
+            this.selectBeat(beatToPlay, false);
+        }
+    }
+
     componentWillUnmount() {
         if (this.curPlayingAudioObj != null) {
             this.curPlayingAudioObj.pause();
@@ -60,9 +78,9 @@ class AudioPlayer extends Component {
         Array.from(this.audioFiles.keys()).forEach(
             (beatName) => {
                 if (this.beatMatchesSelectedTags(beatName)) {
-                    let metadata = this.props.beatMetadata[beatName];
+                    let metadata = this.beatMetadata[beatName];
                     beatLabels.push(<Beat key={beatName} beatName={beatName} metadata={metadata}
-                                          audioPlayerPlayFcn={this.playAudio}
+                                          audioPlayerPlayFcn={this.selectBeat}
                     ></Beat>);
                 }
             }
@@ -75,7 +93,7 @@ class AudioPlayer extends Component {
         }
 
         // metadata for the beat that is playing
-        let curMetadata = this.props.beatMetadata[this.state.currentTrackTitle];
+        let curMetadata = this.beatMetadata[this.state.currentTrackTitle];
 
         let playingBeatHeader;
         let leaseButton;
@@ -111,13 +129,13 @@ class AudioPlayer extends Component {
         );
     }
 
-    // stop other audio being played, start
-    playAudio = (audioName) => {
+    // stop other audio being played, start new audio (if playAudio=true)
+    selectBeat = (audioName, playAudio) => {
         let newAudioToPlay = this.audioFiles.get(audioName);
-        let newBuyLink = this.props.beatMetadata[audioName].buyLink;
+        let newBuyLink = this.beatMetadata[audioName].buyLink;
 
         // add event listener for when audio is done loading
-        newAudioToPlay.onplay = () => {
+        newAudioToPlay.oncanplay = () => {
             this.setState({
                 audioReadyToPlay: true
             });
@@ -134,11 +152,14 @@ class AudioPlayer extends Component {
         }
 
         this.curPlayingAudioObj = newAudioToPlay;
-        this.curPlayingAudioObj.play();
+
+        if (playAudio) {
+            this.curPlayingAudioObj.play();
+        }
 
         this.setState({
             currentTrackTitle: audioName,
-            isPlayingTrack: true,
+            isPlayingTrack: playAudio,
             currentBuyLink: newBuyLink
         });
     };
@@ -146,7 +167,7 @@ class AudioPlayer extends Component {
     // play or pause the current track
     togglePlaying = () => {
         if (this.curPlayingAudioObj == null) {
-            this.playAudio(this.audioFiles.keys().next().value);
+            this.selectBeat(this.audioFiles.keys().next().value, true);
         }
 
         let wasPlaying = this.state.isPlayingTrack;
@@ -174,7 +195,7 @@ class AudioPlayer extends Component {
     // TODO: probably worth it to improve this way of searching by tags (add relevance ranking, BPM/key
     beatMatchesSelectedTags = (beatName) => {
         let selectedTags = this.state.selectedTags;
-        let thisBeatsTags = this.props.beatMetadata[beatName].tags;
+        let thisBeatsTags = this.beatMetadata[beatName].tags;
 
 
         // if there are no tags, always return true

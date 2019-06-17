@@ -11,6 +11,7 @@ class BeatMetadata {
                         "bpm": "150",
                         "leasePrice": "15"
                     },
+
             };
     }
 }

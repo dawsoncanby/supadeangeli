@@ -8,7 +8,7 @@ class Beat extends Component {
 
     render() {
         return (
-            <List.Item as='a' className='Beat' onClick={this.handleClick} key={this.props.beatName}>
+            <List.Item className='Beat' key={this.props.beatName} as='a' onClick={this.handleClick}>
                 <List.Icon verticalAlign='middle' name='play'></List.Icon>
                 <List.Content>
                     <List.Content floated='left'>{this.props.beatName}</List.Content>
@@ -19,7 +19,7 @@ class Beat extends Component {
     }
 
     handleClick = () => {
-        this.props.audioPlayerPlayFcn(this.props.beatName);
+        this.props.audioPlayerPlayFcn(this.props.beatName, true);
     };
 }
 
