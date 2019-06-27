@@ -49,9 +49,7 @@ class AudioPlayer extends Component {
             currentTrackTitle: "",
             isPlayingTrack: false,
             selectedTags: [],
-            currentBuyLink: "",
-            // set to false when user hits play and audio is being loaded (not yet ready to play)
-            audioReadyToPlay: true
+            currentBuyLink: ""
         };
     }
 
@@ -97,26 +95,41 @@ class AudioPlayer extends Component {
 
         let playingBeatHeader;
         let leaseButton;
+        let downloadButton;
         if (this.curPlayingAudioObj !== null) {
-            playingBeatHeader = this.state.currentTrackTitle + ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key;
-            let beatPriceLabel = 'lease - $' + curMetadata.leasePrice
+            playingBeatHeader = <h3>{this.state.currentTrackTitle + ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key}</h3>;
+            let beatPriceLabel = 'lease - $' + curMetadata.leasePrice;
             leaseButton = <Button icon compact labelPosition='left' href={this.state.currentBuyLink}>
                 <Icon name='shopping cart'></Icon>
                 {beatPriceLabel}
-            </Button>
+            </Button>;
+
+            downloadButton = <Button icon compact labelPosition='left' as='a' href={this.curPlayingAudioObj.src} download={this.state.currentTrackTitle + " (prod. supadeangeli)"}>
+                <Icon name='download'></Icon>
+                download
+            </Button>;
+        }
+
+        let playPauseButton;
+        if (this.curPlayingAudioObj != null) {
+            playPauseButton = <Button icon compact onClick={this.togglePlaying}>
+                <Icon name={playPause}></Icon>
+            </Button>;
         }
         else {
-            playingBeatHeader = 'click play for a random beat';
+            playPauseButton = <Button icon compact labelPosition='left' onClick={this.togglePlaying}>
+                <Icon name={playPause}></Icon>
+                play random beat
+            </Button>;
         }
 
         return (
             <Grid columns={1} className='AudioPlayer'>
                 <Grid.Column textAlign='center'>
-                    <h3>{playingBeatHeader}</h3>
-                    <Button icon compact onClick={this.togglePlaying} loading={!this.state.audioReadyToPlay}>
-                        <Icon name={playPause}></Icon>
-                    </Button>
+                    {playingBeatHeader}
+                    {playPauseButton}
                     {leaseButton}
+                    {downloadButton}
                     <br/>
                     <br/>
                     <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>
@@ -134,17 +147,6 @@ class AudioPlayer extends Component {
         let newAudioToPlay = this.audioFiles.get(audioName);
         let newBuyLink = this.beatMetadata[audioName].buyLink;
 
-        // add event listener for when audio is done loading
-        newAudioToPlay.oncanplay = () => {
-            this.setState({
-                audioReadyToPlay: true
-            });
-        };
-
-        // check to see if audio is already ready to play
-        this.setState({
-            audioReadyToPlay: newAudioToPlay.readyState === 4
-        });
 
         if (this.curPlayingAudioObj != null) {
             this.curPlayingAudioObj.pause();
@@ -192,11 +194,10 @@ class AudioPlayer extends Component {
     };
 
     // check to see if this beat has any of the selected tags
-    // TODO: probably worth it to improve this way of searching by tags (add relevance ranking, BPM/key
+    // TODO: probably worth it to improve this way of searching by tags (add relevance ranking, BPM/key)
     beatMatchesSelectedTags = (beatName) => {
         let selectedTags = this.state.selectedTags;
         let thisBeatsTags = this.beatMetadata[beatName].tags;
-
 
         // if there are no tags, always return true
         if (selectedTags.length === 0) {
