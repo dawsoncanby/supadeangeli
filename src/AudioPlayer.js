@@ -104,7 +104,7 @@ class AudioPlayer extends Component {
                 {beatPriceLabel}
             </Button>;
 
-            downloadButton = <Button icon compact labelPosition='left' as='a' href={this.curPlayingAudioObj.src} download={this.state.currentTrackTitle + " (prod. supadeangeli)"}>
+            downloadButton = <Button icon compact labelPosition='left' as='a' href={this.curPlayingAudioObj.src} download={this.state.currentTrackTitle + " (prod. supadeangeli).wav"}>
                 <Icon name='download'></Icon>
                 download
             </Button>;

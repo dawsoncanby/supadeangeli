@@ -3,10 +3,10 @@ class BeatMetadata {
         // REQUIRED PROPS: tags, buyLink, bpm, key, leasePrice (in USD)
         this.metadata =
             {
-                "ceiling":
+                "come right back":
                     {
                         "tags": ["bouncy", "happy", "clean"],
-                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388",
+                        "buyLink": "",
                         "key": "c major",
                         "bpm": "150",
                         "leasePrice": "15"
@@ -14,7 +14,7 @@ class BeatMetadata {
                 "bde":
                     {
                         "tags": ["bouncy", "happy", "clean"],
-                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388",
+                        "buyLink": "",
                         "key": "c major",
                         "bpm": "150",
                         "leasePrice": "15"
@@ -22,7 +22,7 @@ class BeatMetadata {
                 "get the juul":
                     {
                         "tags": ["bouncy", "happy", "clean"],
-                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388",
+                        "buyLink": "",
                         "key": "c major",
                         "bpm": "150",
                         "leasePrice": "15"
@@ -30,7 +30,7 @@ class BeatMetadata {
                 "time for number 2":
                     {
                         "tags": ["bouncy", "happy", "clean"],
-                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388",
+                        "buyLink": "",
                         "key": "c major",
                         "bpm": "150",
                         "leasePrice": "15"
@@ -38,7 +38,31 @@ class BeatMetadata {
                 "outside today":
                     {
                         "tags": ["bouncy", "happy", "clean"],
-                        "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=182622&method_id=197388",
+                        "buyLink": "",
+                        "key": "c major",
+                        "bpm": "150",
+                        "leasePrice": "15"
+                    },
+                "superior":
+                    {
+                        "tags": ["bouncy", "happy", "clean"],
+                        "buyLink": "",
+                        "key": "c major",
+                        "bpm": "150",
+                        "leasePrice": "15"
+                    },
+                "supa squidds type beat":
+                    {
+                        "tags": ["bouncy", "happy", "clean"],
+                        "buyLink": "",
+                        "key": "c major",
+                        "bpm": "150",
+                        "leasePrice": "15"
+                    },
+                "crazy shit happened":
+                    {
+                        "tags": ["bouncy", "happy", "clean"],
+                        "buyLink": "",
                         "key": "c major",
                         "bpm": "150",
                         "leasePrice": "15"
