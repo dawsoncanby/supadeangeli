@@ -97,7 +97,8 @@ class AudioPlayer extends Component {
         let leaseButton;
         let downloadButton;
         if (this.curPlayingAudioObj !== null) {
-            playingBeatHeader = <h3>{this.state.currentTrackTitle + ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key}</h3>;
+            // TODO: add bpm and key back when metadata is correct
+            playingBeatHeader = <h3>{this.state.currentTrackTitle /*+ ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key*/}</h3>;
             let beatPriceLabel = 'lease - $' + curMetadata.leasePrice;
             leaseButton = <Button icon compact labelPosition='left' href={this.state.currentBuyLink}>
                 <Icon name='shopping cart'></Icon>
