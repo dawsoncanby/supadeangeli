@@ -95,6 +95,7 @@ class AudioPlayer extends Component {
 
         let playingBeatHeader;
         let leaseButton;
+        // TODO: maybe add download button for free beats?
         let downloadButton;
         if (this.curPlayingAudioObj !== null) {
             // TODO: add bpm and key back when metadata is correct
@@ -130,7 +131,6 @@ class AudioPlayer extends Component {
                     {playingBeatHeader}
                     {playPauseButton}
                     {leaseButton}
-                    {downloadButton}
                     <br/>
                     <br/>
                     <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>

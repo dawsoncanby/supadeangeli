@@ -20,14 +20,9 @@ class Links extends Component {
                             soundcloud
                         </Button>
                         <Button compact color='instagram' icon labelPosition='left'
-                                href='https://instagram.com/deangelibeats'>
+                                href='https://www.instagram.com/supadeangeli/'>
                             <Icon name='instagram'></Icon>
-                            deangeli
-                        </Button>
-                        <Button compact color='instagram' icon labelPosition='left'
-                                href='https://instagram.com/dawsoncanby'>
-                            <Icon name='instagram'></Icon>
-                            supa d
+                            instagram
                         </Button>
 
                     </Button.Group>
