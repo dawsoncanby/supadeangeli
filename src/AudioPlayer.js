@@ -99,14 +99,16 @@ class AudioPlayer extends Component {
         let downloadButton;
         if (this.curPlayingAudioObj !== null) {
             // TODO: add bpm and key back when metadata is correct
-            playingBeatHeader = <h3>{this.state.currentTrackTitle /*+ ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key*/}</h3>;
+            playingBeatHeader =
+                <h3>{this.state.currentTrackTitle /*+ ' - ' + curMetadata.bpm + ' bpm - ' + curMetadata.key*/}</h3>;
             let beatPriceLabel = 'lease - $' + curMetadata.leasePrice;
             leaseButton = <Button icon compact labelPosition='left' href={this.state.currentBuyLink}>
                 <Icon name='shopping cart'></Icon>
                 {beatPriceLabel}
             </Button>;
 
-            downloadButton = <Button icon compact labelPosition='left' as='a' href={this.curPlayingAudioObj.src} download={this.state.currentTrackTitle + " (prod. supadeangeli).wav"}>
+            downloadButton = <Button icon compact labelPosition='left' as='a' href={this.curPlayingAudioObj.src}
+                                     download={this.state.currentTrackTitle + " (prod. supadeangeli).wav"}>
                 <Icon name='download'></Icon>
                 download
             </Button>;
@@ -125,12 +127,17 @@ class AudioPlayer extends Component {
             </Button>;
         }
 
+        let leaseDownloadButton;
+        if (curMetadata !== undefined) {
+            leaseDownloadButton = curMetadata.leasePrice > 0 ? leaseButton : downloadButton;
+        }
+
         return (
             <Grid columns={1} className='AudioPlayer'>
                 <Grid.Column textAlign='center'>
                     {playingBeatHeader}
                     {playPauseButton}
-                    {leaseButton}
+                    {leaseDownloadButton}
                     <br/>
                     <br/>
                     <TagFilter tags={this.beatTags} filterByTags={this.filterByTags}></TagFilter>

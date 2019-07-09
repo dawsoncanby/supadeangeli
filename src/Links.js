@@ -8,21 +8,18 @@ class Links extends Component {
             <Grid columns='1' centered={true}>
 
                 <Grid.Column textAlign='center'>
-                    <Button.Group vertical>
+                    <Button.Group >
 
-                        <Button compact color='youtube' icon labelPosition='left'
+                        <Button compact color='youtube' icon
                                 href='https://www.youtube.com/channel/UCHcjR6a3FnVi1IzjBXQ0B6A'>
                             <Icon name='youtube play'></Icon>
-                            youtube
                         </Button>
-                        <Button compact color='orange' icon labelPosition='left' href='https://soundcloud.com/supadeangeli-beats'>
+                        <Button compact color='orange' icon href='https://soundcloud.com/supadeangeli-beats'>
                             <Icon name='soundcloud'></Icon>
-                            soundcloud
                         </Button>
-                        <Button compact color='instagram' icon labelPosition='left'
+                        <Button compact color='instagram' icon
                                 href='https://www.instagram.com/supadeangeli/'>
                             <Icon name='instagram'></Icon>
-                            instagram
                         </Button>
 
                     </Button.Group>

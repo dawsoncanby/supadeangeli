@@ -7,12 +7,13 @@ import './Beat.css';
 class Beat extends Component {
 
     render() {
+        let priceTag = this.props.metadata.leasePrice > 0 ? '$' + this.props.metadata.leasePrice : 'free';
         return (
             <List.Item className='Beat' key={this.props.beatName} as='a' onClick={this.handleClick}>
                 <List.Icon verticalAlign='middle' name='play'></List.Icon>
                 <List.Content>
                     <List.Content floated='left'>{this.props.beatName}</List.Content>
-                    <List.Content floated='right'>{'$' + this.props.metadata.leasePrice}</List.Content>
+                    <List.Content floated='right'>{priceTag}</List.Content>
                 </List.Content>
             </List.Item>
         );

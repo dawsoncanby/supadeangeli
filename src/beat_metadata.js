@@ -9,7 +9,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183255&method_id=198116",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "bde":
                     {
@@ -17,7 +17,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183257&method_id=198118",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "get the juul":
                     {
@@ -25,7 +25,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183254&method_id=198115",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "time for number 2":
                     {
@@ -33,7 +33,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183256&method_id=198117",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "outside today":
                     {
@@ -41,7 +41,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183251&method_id=198112",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "superior":
                     {
@@ -49,7 +49,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183248&method_id=198109",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "supa squidds type beat":
                     {
@@ -57,7 +57,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183250&method_id=198111",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
                 "crazy shit happened":
                     {
@@ -65,7 +65,7 @@ class BeatMetadata {
                         "buyLink": "https://supadeangeli-beats.dpdcart.com/cart/add?product_id=183252&method_id=198113",
                         "key": "c major",
                         "bpm": "150",
-                        "leasePrice": "15"
+                        "leasePrice": "0"
                     },
 
             };
